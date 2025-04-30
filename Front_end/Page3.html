@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=640, height=1136, initial-scale=1.0">
+  <title>MULAH Confirmation</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&family=Playfair+Display&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+      width: 640px;
+      min-height: 100vh;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 40px;
+      
+      color: #4A4A4A;
+    }
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 38px;
+      color: #F26D21;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+    p.sub {
+      font-family: 'Montserrat', sans-serif;
+      color: #F26D21;
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+    .info-box {
+      background-color: #f59c68;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      padding: 20px;
+      font-size: 18px;
+      width: 80%;
+      margin-bottom: 40px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+    .info-box div {
+      margin-bottom: 10px;
+    }
+    footer {
+      margin-top: auto;
+      text-align: center;
+    }
+    footer p {
+      padding-bottom: 50px;
+      font-size: 20px;
+    }
+    a {
+      color: #0056b3;
+      text-decoration: none;
+    }
+    span {
+        color: #4A4A4A;
+        font-size: px;
+    }
+
+
+  </style>
+</head>
+<body>
+  <div class="logo">MULAH</div>
+  <h1>Confirmation</h1>
+  <p class="sub">Your submitted details</p>
+
+  <div class="info-box">
+    <div><strong>Name:</strong> <span id="name">...</span></div>
+    <div><strong>Birthday:</strong> <span id="birthday">...</span></div>
+    <div><strong>Email:</strong> <span id="email">...</span></div>
+    <div><strong>Phone Number:</strong> <span id="phone">...</span></div>
+</div>
+
+  <footer>
+    <p>Powered by <a href="https://MulahRewards.com">MulahRewards.com</a></p>
+  </footer>
+
+  <script>
+    // Helper to get query params
+    function getQueryParam(key) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(key) || 'N/A';
+    }
+
+    // Populate fields
+    document.getElementById('name').textContent = getQueryParam('name');
+    document.getElementById('birthday').textContent = getQueryParam('birthday');
+    document.getElementById('email').textContent = getQueryParam('email');
+    document.getElementById('phone').textContent = getQueryParam('phone');
+  </script>
+</body>
+</html>

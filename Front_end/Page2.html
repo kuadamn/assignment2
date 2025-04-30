@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=640, height=1136, initial-scale=1.0">
+  <title>MULAH Registration</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&family=Playfair+Display&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+      width: 640px;
+      min-height: 100vh;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 40px;
+      color: #4A4A4A;
+    }
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 38px;
+      color: #F26D21;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      margin: 10px 0;
+    }
+    p {
+      font-family: 'Montserrat', sans-serif;
+      color: #F26D21;
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      width: 320px;
+      padding: 14px;
+      font-size: 18px;
+      margin-top: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .birthday-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .birthday-group input {
+      width: 90px;
+    }
+    .checkbox {
+      margin-bottom: 15px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: -10px;
+      margin-bottom: 10px;
+      display: none;
+    }
+    .button {
+      background-color: #F26D21;
+      color: white;
+      font-size: 20px;
+      padding: 14px 26px;
+      border: none;
+      border-radius: 28px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    footer {
+      margin-top: auto;
+      text-align: center;
+    }
+    footer p {
+      padding-bottom: 50px;
+      font-size: 20px;
+    }
+    a {
+      color: #0056b3;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">MULAH</div>
+  <h1>Registration</h1>
+  <p>Please fill up your details.</p>
+
+  <div>
+    <label>Name</label><br>
+    <input type="text" id="name" placeholder="Enter Name">
+    <div class="error" id="nameError">*Please insert a name.</div>
+
+    <label>Birthday</label>
+    <div class="birthday-group">
+      <input type="number" id="day" placeholder="DD" min="1" max="31">
+      <input type="number" id="month" placeholder="MM" min="1" max="12">
+      <input type="number" id="year" placeholder="YYYY" min="1900" max="2100">
+    </div>
+    <div class="error" id="birthdayError">*Please insert your birthday.</div>
+
+    <label>Email</label><br>
+    <input type="email" id="email" placeholder="Email Address">
+    <div class="checkbox">
+      <input type="checkbox" id="noEmail" onchange="toggleEmail()">
+      <label for="noEmail">No email address</label>
+    </div>
+    <div class="error" id="emailError">*Please insert a valid email address.</div>
+
+    <button class="button" onclick="submitForm()">Continue</button>
+  </div>
+
+  <footer>
+    <p>Powered by <a href="https://MulahRewards.com">MulahRewards.com</a></p>
+  </footer>
+
+  <script>
+    function toggleEmail() {
+      const emailInput = document.getElementById('email');
+      const noEmailCheckbox = document.getElementById('noEmail');
+
+      if (noEmailCheckbox.checked) {
+        emailInput.value = '';
+        emailInput.disabled = true;
+        document.getElementById('emailError').style.display = 'none';
+      } else {
+        emailInput.disabled = false;
+      }
+    }
+
+    function getQueryParam(key) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(key) || '';
+    }
+
+    function submitForm() {
+      const name = document.getElementById('name').value.trim();
+      const day = document.getElementById('day').value;
+      const month = document.getElementById('month').value;
+      const year = document.getElementById('year').value;
+      const email = document.getElementById('email').value.trim();
+      const noEmail = document.getElementById('noEmail').checked;
+      const phone = getQueryParam('phone');
+
+      let valid = true;
+
+      document.getElementById('nameError').style.display = name ? 'none' : 'block';
+      document.getElementById('birthdayError').style.display = (day && month && year) ? 'none' : 'block';
+
+      if (!noEmail) {
+        const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        document.getElementById('emailError').style.display = emailIsValid ? 'none' : 'block';
+        
+    if (!emailIsValid) valid = false;
+
+      } else {
+        document.getElementById('emailError').style.display = 'none';
+      }
+
+      if (!name || !day || !month || !year) {
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      const birthday = `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${year}`;
+      const params = new URLSearchParams({
+        name,
+        birthday,
+        email: noEmail ? 'N/A' : email,
+        phone
+      });
+      window.location.href = `page3.html?${params.toString()}`;
+    }
+  </script>
+</body>
+</html>
